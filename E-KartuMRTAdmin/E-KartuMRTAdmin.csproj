@@ -56,6 +56,24 @@
     <Compile Include="FormLogin.Designer.cs">
       <DependentUpon>FormLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormMasterKereta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMasterKereta.Designer.cs">
+      <DependentUpon>FormMasterKereta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMasterRute.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMasterRute.Designer.cs">
+      <DependentUpon>FormMasterRute.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMasterStasiun.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMasterStasiun.Designer.cs">
+      <DependentUpon>FormMasterStasiun.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,6 +85,18 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMasterKereta.resx">
+      <DependentUpon>FormMasterKereta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMasterRute.resx">
+      <DependentUpon>FormMasterRute.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMasterStasiun.resx">
+      <DependentUpon>FormMasterStasiun.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMenu.resx">
+      <DependentUpon>FormMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

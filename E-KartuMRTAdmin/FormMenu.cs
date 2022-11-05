@@ -16,5 +16,34 @@ namespace E_KartuMRTAdmin
         {
             InitializeComponent();
         }
+
+        private void masterRuteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormMasterRute frm = new FormMasterRute();
+            this.Hide();
+            frm.ShowDialog();
+            this.Show();
+        }
+
+        private void masterStasiunToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormMasterStasiun frm = new FormMasterStasiun();
+            this.Hide();
+            frm.ShowDialog();
+            this.Show();
+        }
+
+        private void masterKeretaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormMasterKereta frm = new FormMasterKereta();
+            this.Hide();
+            frm.ShowDialog();
+            this.Show();
+        }
+
+        private void logoutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
