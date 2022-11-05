@@ -141,6 +141,11 @@ namespace E_KartuMRTAdmin
 
         private void buttonClear_Click(object sender, EventArgs e)
         {
+            clearRute();
+        }
+
+        public void clearRute()
+        {
             idxRute = -1;
             tbidrute.Text = "";
             tbnama.Text = "";
@@ -169,30 +174,23 @@ namespace E_KartuMRTAdmin
 
         private void buttonTambahStasiun_Click(object sender, EventArgs e)
         {
-            if(numericUpDownJarak.Value > 0)
+            bool nonKembar = true;
+            foreach (DataGridViewRow dr in dataGridViewDRute.Rows)
             {
-                bool nonKembar = true;
-                foreach (DataGridViewRow dr in dataGridViewDRute.Rows)
+                if(dr.Cells[1].Value.ToString() == textBoxIdStasiun.Text)
                 {
-                    if(dr.Cells[1].Value.ToString() == textBoxIdStasiun.Text)
-                    {
-                        nonKembar = false;
-                        break;
-                    } 
-                }
-                if (nonKembar)
-                {
-                    dataGridViewDRute.Rows.Add(dataGridViewDRute.Rows.Count + 1, textBoxIdStasiun.Text, textBoxNamaStasiun.Text, numericUpDownJarak.Value.ToString());
-                    clearDRute();
-                }
-                else
-                {
-                    MessageBox.Show("Stasiun Kembar");
-                }
+                    nonKembar = false;
+                    break;
+                } 
+            }
+            if (nonKembar)
+            {
+                dataGridViewDRute.Rows.Add(dataGridViewDRute.Rows.Count + 1, textBoxIdStasiun.Text, textBoxNamaStasiun.Text, numericUpDownJarak.Value.ToString());
+                clearDRute();
             }
             else
             {
-                MessageBox.Show("Jarak Next harus > 0");
+                MessageBox.Show("Stasiun Kembar");
             }
             
         }
@@ -204,7 +202,96 @@ namespace E_KartuMRTAdmin
 
         private void buttonTambah_Click(object sender, EventArgs e)
         {
+            if(tbidrute.Text == "" && tbnama.Text != "" && comboBoxStatus.SelectedIndex > -1)
+            {
+                using (MySqlTransaction obTrans = Koneksi.getConn().BeginTransaction())
+                {
+                    try
+                    {
+                        MySqlCommand cmd = new MySqlCommand();
+                        cmd.Connection = Koneksi.getConn();
+                        cmd.CommandText = "SELECT (MAX(id_rute)+1) FROM rute";
+                        int idrute = int.Parse(cmd.ExecuteScalar().ToString());
+                        cmd.Parameters.Clear();
+                        cmd.CommandText = "INSERT INTO rute VALUES(@idrute, @nama, @ppm, @status)";
+                        cmd.Parameters.Add(new MySqlParameter("@idrute", idrute));
+                        cmd.Parameters.Add(new MySqlParameter("@nama", tbnama.Text.ToString()));
+                        cmd.Parameters.Add(new MySqlParameter("@ppm", double.Parse(nUPPPM.Value.ToString())));
+                        cmd.Parameters.Add(new MySqlParameter("@status", comboBoxStatus.SelectedIndex));
+                        cmd.ExecuteNonQuery();
+                        foreach (DataGridViewRow dr in dataGridViewDRute.Rows)
+                        {
+                            cmd.Parameters.Clear();
+                            cmd.CommandText = "INSERT INTO drute VALUES (@idrute, @idstasiun, @stasiunke, @jaraknext)";
+                            cmd.Parameters.Add(new MySqlParameter("@idrute", idrute));
+                            cmd.Parameters.Add(new MySqlParameter("@idstasiun", int.Parse(dr.Cells[1].Value.ToString())));
+                            cmd.Parameters.Add(new MySqlParameter("@stasiunke", int.Parse(dr.Cells[0].Value.ToString())));
+                            cmd.Parameters.Add(new MySqlParameter("@jaraknext", int.Parse(dr.Cells[3].Value.ToString())));
+                            cmd.ExecuteNonQuery();
+                        }
+                        obTrans.Commit();
+                        clearRute();
+                        textBoxSearchRute.Text = "";
+                        loadRute();
+                    }
+                    catch (MySqlException ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        obTrans.Rollback();
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Masukkan input!");
+            }
+        }
 
+        private void buttonUpdate_Click(object sender, EventArgs e)
+        {
+            if (tbidrute.Text != "" && tbnama.Text != "" && comboBoxStatus.SelectedIndex > -1)
+            {
+                using (MySqlTransaction obTrans = Koneksi.getConn().BeginTransaction())
+                {
+                    try
+                    {
+                        MySqlCommand cmd = new MySqlCommand();
+                        cmd.Connection = Koneksi.getConn();
+                        int idrute = int.Parse(tbidrute.Text);
+                        cmd.CommandText = "UPDATE rute set nama_rute = @nama, ppm = @ppm, status_rute = @status WHERE id_rute = @idrute";
+                        cmd.Parameters.Add(new MySqlParameter("@idrute", idrute));
+                        cmd.Parameters.Add(new MySqlParameter("@nama", tbnama.Text.ToString()));
+                        cmd.Parameters.Add(new MySqlParameter("@ppm", double.Parse(nUPPPM.Value.ToString())));
+                        cmd.Parameters.Add(new MySqlParameter("@status", comboBoxStatus.SelectedIndex));
+                        cmd.ExecuteNonQuery();
+                        cmd.CommandText = "DELETE FROM drute WHERE id_rute = @idrute";
+                        cmd.ExecuteNonQuery();
+                        foreach (DataGridViewRow dr in dataGridViewDRute.Rows)
+                        {
+                            cmd.Parameters.Clear();
+                            cmd.CommandText = "INSERT INTO drute VALUES (@idrute, @idstasiun, @stasiunke, @jaraknext)";
+                            cmd.Parameters.Add(new MySqlParameter("@idrute", idrute));
+                            cmd.Parameters.Add(new MySqlParameter("@idstasiun", int.Parse(dr.Cells[1].Value.ToString())));
+                            cmd.Parameters.Add(new MySqlParameter("@stasiunke", int.Parse(dr.Cells[0].Value.ToString())));
+                            cmd.Parameters.Add(new MySqlParameter("@jaraknext", int.Parse(dr.Cells[3].Value.ToString())));
+                            cmd.ExecuteNonQuery();
+                        }
+                        obTrans.Commit();
+                        clearRute();
+                        textBoxSearchRute.Text = "";
+                        loadRute();
+                    }
+                    catch (MySqlException ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        obTrans.Rollback();
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Masukkan input!");
+            }
         }
 
         public void clearDRute()
