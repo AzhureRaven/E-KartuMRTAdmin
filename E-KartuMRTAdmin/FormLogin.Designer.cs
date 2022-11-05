@@ -41,7 +41,7 @@ namespace E_KartuMRTAdmin
             // 
             this.buttonLogin.AutoSize = true;
             this.buttonLogin.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.buttonLogin.Location = new System.Drawing.Point(244, 181);
+            this.buttonLogin.Location = new System.Drawing.Point(242, 140);
             this.buttonLogin.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Size = new System.Drawing.Size(172, 50);
@@ -52,29 +52,32 @@ namespace E_KartuMRTAdmin
             // 
             // textBoxPass
             // 
-            this.textBoxPass.Location = new System.Drawing.Point(101, 143);
+            this.textBoxPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.textBoxPass.Location = new System.Drawing.Point(126, 108);
             this.textBoxPass.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxPass.Name = "textBoxPass";
             this.textBoxPass.PasswordChar = '*';
-            this.textBoxPass.Size = new System.Drawing.Size(313, 22);
+            this.textBoxPass.Size = new System.Drawing.Size(288, 28);
             this.textBoxPass.TabIndex = 10;
             // 
             // textBoxUser
             // 
-            this.textBoxUser.Location = new System.Drawing.Point(101, 76);
+            this.textBoxUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.textBoxUser.Location = new System.Drawing.Point(126, 67);
             this.textBoxUser.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxUser.Name = "textBoxUser";
-            this.textBoxUser.Size = new System.Drawing.Size(313, 22);
+            this.textBoxUser.Size = new System.Drawing.Size(288, 28);
             this.textBoxUser.TabIndex = 9;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.label3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label3.Location = new System.Drawing.Point(13, 146);
+            this.label3.Location = new System.Drawing.Point(13, 111);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(81, 17);
+            this.label3.Size = new System.Drawing.Size(107, 24);
             this.label3.TabIndex = 8;
             this.label3.Text = "Password  :";
             // 
@@ -82,10 +85,11 @@ namespace E_KartuMRTAdmin
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label2.Location = new System.Drawing.Point(13, 80);
+            this.label2.Location = new System.Drawing.Point(13, 71);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(81, 17);
+            this.label2.Size = new System.Drawing.Size(107, 24);
             this.label2.TabIndex = 7;
             this.label2.Text = "Username :";
             // 
@@ -105,7 +109,7 @@ namespace E_KartuMRTAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(436, 245);
+            this.ClientSize = new System.Drawing.Size(429, 201);
             this.Controls.Add(this.buttonLogin);
             this.Controls.Add(this.textBoxPass);
             this.Controls.Add(this.textBoxUser);
