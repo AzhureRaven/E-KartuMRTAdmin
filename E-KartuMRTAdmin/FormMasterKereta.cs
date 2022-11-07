@@ -97,10 +97,10 @@ namespace E_KartuMRTAdmin
 
         private void buttonClear_Click(object sender, EventArgs e)
         {
-
+            clearKereta();
         }
 
-        public void clearStasiun()
+        public void clearKereta()
         {
             idxKereta = -1;
             tbidKereta.Text = "";
@@ -109,6 +109,70 @@ namespace E_KartuMRTAdmin
             comboBoxStatus.SelectedIndex = -1;
             comboBoxRute.SelectedIndex = 0;
             updateButtons();
+        }
+
+        private void buttonTambah_Click(object sender, EventArgs e)
+        {
+            if (tbidKereta.Text == "" && tbnama.Text != "" && comboBoxStatus.SelectedIndex > -1 && comboBoxRute.SelectedIndex > -1 && nudGerbong.Value > 0)
+            {
+                try
+                {
+                    MySqlCommand cmd = new MySqlCommand();
+                    cmd.Connection = Koneksi.getConn();
+                    cmd.CommandText = "SELECT (MAX(id_kereta)+1) FROM kereta";
+                    int idkereta = int.Parse(cmd.ExecuteScalar().ToString());
+                    cmd.Parameters.Clear();
+                    cmd.CommandText = "INSERT INTO kereta VALUES(@idkereta, @idrute, @nama, @gerbong, @status)";
+                    cmd.Parameters.Add(new MySqlParameter("@idkereta", idkereta));
+                    cmd.Parameters.Add(new MySqlParameter("@idrute", int.Parse(comboBoxRute.SelectedValue.ToString())));
+                    cmd.Parameters.Add(new MySqlParameter("@nama", tbnama.Text.ToString()));
+                    cmd.Parameters.Add(new MySqlParameter("@gerbong", int.Parse(nudGerbong.Value.ToString())));
+                    cmd.Parameters.Add(new MySqlParameter("@status", comboBoxStatus.SelectedIndex));
+                    cmd.ExecuteNonQuery();
+                    clearKereta();
+                    textBoxSearchKereta.Text = "";
+                    loadKereta();
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Masukkan input!");
+            }
+        }
+
+        private void buttonUpdate_Click(object sender, EventArgs e)
+        {
+            if (tbidKereta.Text != "" && tbnama.Text != "" && comboBoxStatus.SelectedIndex > -1 && comboBoxRute.SelectedIndex > -1 && nudGerbong.Value > 0)
+            {
+                try
+                {
+                    MySqlCommand cmd = new MySqlCommand();
+                    cmd.Connection = Koneksi.getConn();
+                    int idkereta = int.Parse(tbidKereta.Text);
+                    cmd.CommandText = "UPDATE kereta SET id_rute = @idrute, nama_kereta = @nama, gerbong = @gerbong, status_kereta = @status WHERE id_kereta = @idkereta";
+                    cmd.Parameters.Add(new MySqlParameter("@idkereta", idkereta));
+                    cmd.Parameters.Add(new MySqlParameter("@idrute", int.Parse(comboBoxRute.SelectedValue.ToString())));
+                    cmd.Parameters.Add(new MySqlParameter("@nama", tbnama.Text.ToString()));
+                    cmd.Parameters.Add(new MySqlParameter("@gerbong", int.Parse(nudGerbong.Value.ToString())));
+                    cmd.Parameters.Add(new MySqlParameter("@status", comboBoxStatus.SelectedIndex));
+                    cmd.ExecuteNonQuery();
+                    clearKereta();
+                    textBoxSearchKereta.Text = "";
+                    loadKereta();
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Masukkan input!");
+            }
         }
 
         public void loadRute()

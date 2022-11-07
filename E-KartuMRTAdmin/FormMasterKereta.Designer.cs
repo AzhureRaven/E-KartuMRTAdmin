@@ -130,6 +130,7 @@ namespace E_KartuMRTAdmin
             this.buttonUpdate.TabIndex = 99;
             this.buttonUpdate.Text = "Update";
             this.buttonUpdate.UseVisualStyleBackColor = true;
+            this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
             // 
             // buttonTambah
             // 
@@ -142,6 +143,7 @@ namespace E_KartuMRTAdmin
             this.buttonTambah.TabIndex = 98;
             this.buttonTambah.Text = "Tambah";
             this.buttonTambah.UseVisualStyleBackColor = true;
+            this.buttonTambah.Click += new System.EventHandler(this.buttonTambah_Click);
             // 
             // label3
             // 
