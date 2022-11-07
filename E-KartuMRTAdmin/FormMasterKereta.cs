@@ -181,10 +181,10 @@ namespace E_KartuMRTAdmin
             {
                 MySqlCommand cmd = new MySqlCommand("SELECT id_rute AS 'member', nama_rute AS 'display' FROM rute WHERE status_rute != 2", Koneksi.getConn());
                 MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
+                rute = new DataTable();
+                da.Fill(rute);
                 comboBoxRute.DataSource = null;
-                comboBoxRute.DataSource = dt;
+                comboBoxRute.DataSource = rute;
                 comboBoxRute.DisplayMember = "display";
                 comboBoxRute.ValueMember = "member";
                 comboBoxRute.SelectedIndex = 0;

@@ -283,12 +283,12 @@ namespace E_KartuMRTAdmin
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(25, 68);
+            this.label5.Location = new System.Drawing.Point(47, 68);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(81, 24);
+            this.label5.Size = new System.Drawing.Size(59, 24);
             this.label5.TabIndex = 104;
-            this.label5.Text = "Stasiun :";
+            this.label5.Text = "Rute :";
             this.label5.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // comboBoxRute
