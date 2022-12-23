@@ -210,7 +210,7 @@ namespace E_KartuMRTAdmin
                     {
                         MySqlCommand cmd = new MySqlCommand();
                         cmd.Connection = Koneksi.getConn();
-                        cmd.CommandText = "SELECT (MAX(id_rute)+1) FROM rute";
+                        cmd.CommandText = "SELECT ifnull((MAX(id_rute)+1),1) FROM rute";
                         int idrute = int.Parse(cmd.ExecuteScalar().ToString());
                         cmd.Parameters.Clear();
                         cmd.CommandText = "INSERT INTO rute VALUES(@idrute, @nama, @ppm, @status)";
